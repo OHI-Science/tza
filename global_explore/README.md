@@ -7,5 +7,6 @@ In a few cases, data files are saved locally as `.csv` files for Tanzania only b
 - `explore-data.Rmd` extracts and displays OHI global information for Tanzania by goal, and can be [viewed as an html here](https://rawgit.com/OHI-Science/tza/master/global_explore/explore-data.html)
 - `stock_catch_by_rgn.csv` lists data by year included in the global assessments' fisheries sub-goal
 - `fis_meancatch_lookup` lists the species included in the global assessments' fisheries sub-goal
+- `fis_b_bmsy_lookup` lists the species that have B/Bmsy scores that are included in the global assessments' fisheries sub-goal
 - `rgn_spp_gl.csv` lists the species included in global assessments' species sub-goal
 

@@ -1,0 +1,49 @@
+---
+title: "Country Opportunities Report Template"
+output:
+  word_document:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+always_allow_html: yes    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Objectives of this report
+
+- OHI+ Tanzania Team
+- Stakeholder process
+- Data Sharing
+- Etc
+
+# OHI Global Framework and Tanzania
+
+Before discussing scores, data, or data gaps, we will go through each goal of the global assessment conceptually, to determine whether these goals each represent Tanzania.
+
+Full descriptions of each goal at [ohi-science.org/ohi-global/goals](http://ohi-science.org/ohi-global/goals.html), and a presentation to walk through each goal described in this section is available [here](https://docs.google.com/presentation/d/1R5oIFpTAqVbVTe6LymA9_eyaihOb7o3oJ9O6J5TruiE/edit?usp=sharing)
+
+```{r, child="goal-descriptions-recs.Rmd"}
+# you can edit this "child" RMarkdown file directly, save, and it will be "knit" into this full report
+```
+
+
+# Global Data, Data Gaps, Opportunities
+
+
+```{r, child="explore-global-data.Rmd"}
+# you can edit this "child" RMarkdown file directly, save, and it will be "knit" into this full report
+```
+
+
+# Potential Assessment Regions
+
+Global assessments assess the exclusive economic zone (EEZs) of coastal countries and territories ([see Global Supplemental Information](https://rawgit.com/OHI-Science/ohi-global/draft/global_supplement/Supplement.html#3_regions)). 
+
+In Tanzania...
+
+# Summary
+

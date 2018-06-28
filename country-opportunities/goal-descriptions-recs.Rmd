@@ -1,0 +1,193 @@
+## Food Provision: Fisheries
+
+### Goal Description
+
+The Fisheries sub-goal describes the amount of wild-caught seafood harvested and its sustainability for human consumption. The model generally compares landings with Maximum Sustainable Yield. A score of 100 means the country or region is harvesting seafood to the ecosystem’s production potential in an sustainable manner.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Food Provision: Mariculture
+
+### Goal Description
+
+Mariculture measures the ability to reach the highest levels of seafood gained from farm-raised facilities without damaging the ocean’s ability to provide fish sustainably now and in the future. Higher scores reflect high food provisioning in a sustainable manner, while not compromising the water quality in the farmed area and not relying on wild populations to feed or replenish the cultivated species. A score of 100 means that a region is sustainably harvesting the greatest amount of farmed seafood possible based on its own potential.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Artisanal Fishing Opportunity 
+
+### Goal Description
+
+Artisanal fishing, often also called small-scale fishing, provides a critical source of food, nutrition, poverty alleviation and livelihood opportunities for many people around the world, in particular in developing nations. This goal measure whether people who need to fish on a small, local scale have the opportunity to do so. It has three sub-components: stock, access, and need. A score of 100 means the country or region is meeting the needs of artisanal fishermen or communities by implementing institutional supports, providing access to near-shore water, and maintaining the health of targeted species.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Natural Products
+
+### Goal Description
+
+In many countries the harvest of non-food natural products is important for local economies and can also be traded internationally. The sustainable harvest of these products is therefore an important component of a healthy ocean. This goal assesses the ability of countries to maximize the sustainable harvest of living marine resources, such as corals, shells, seaweeds, and fish for the aquarium trade. It does not include bioprospecting which focuses on potential (and largely unknowable and potentially infinite) value rather than current realized value, or non-living products such as oil and gas or mining products which by definition are not sustainable.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Carbon Storage
+
+### Goal Description
+
+The Carbon Storage goal captures the ability of the coastal habitats to remove carbon given their carbon uptake rate and health conditions. A score of 100 means all habitats that contribute to carbon removal are still intact or have been restored and they can function to their full carbon burial potential. Highly productive coastal wetland ecosystems or seagrass store substantially large amount of carbon have the highest sequestration rates of any habitats on earth. They are also threatened by under-regulated coastal development but are amenable to restoration and conservation efforts.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Coastal Protection
+
+### Goal Description
+
+This goal aims to assess the amount of protection provided by marine and coastal habitats against flooding and erosion to coastal areas that people value, both inhabited (homes and other structures) and uninhabited (parks, special places, etc.). A score of 100 would indicate that these habitats are all still intact or have been restored to their reference conditions.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Tourism & Recreation
+
+### Goal Description
+
+Tourism and recreation in coastal areas is a major component of thriving coastal communities and a measure of how much people value ocean systems, i.e. by traveling to coastal and ocean areas. This goal aims to capture the number of people, and the quality of their experience, visiting coastal and marine areas and attractions. A score of 100 means a region utilizes its full recreational potential without harming the ecosystem.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Livelihoods & Economies: Livelihoods
+
+### Goal Description
+
+The jobs and revenue produced from marine-related industries are clearly of huge value to many people, even for those people who do not directly participate in marine-related industries. People value community identity, tax revenue, and indirect economic and social impacts of a stable coastal economy. This sub-goal Livelihood describes job quantity and quality for people living on the coast. Livelihoods includes two equally important sub-components, the number of jobs, which is a proxy for livelihood quantity, and the per capita average annual wages, which is a proxy for job quality.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Livelihoods & Economies: Economies
+
+### Goal Description
+
+Economies captures the economic value associated with marine industries using revenue from marine sectors. It is composed of a single component, revenue.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Sense of Place: Iconic Species
+
+### Goal Description
+
+Iconic species are those that are relevant to local cultural identity through a species’ relationship to one or more of the following: 1) traditional activities such as fishing, hunting or commerce; 2) local ethnic or religious practices; 3) existence value; and 4) locally-recognized aesthetic value (e.g., touristic attractions/common subjects for art such as whales). Habitat-forming species are not included in this definition of iconic species, nor are species that are harvested solely for economic or utilitarian purposes (even though they may be iconic to a sector or individual). This sub-goal assesses how well those species are conserved.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Sense of Place: Lasting Special Places
+
+### Goal Description
+
+Sense of Place goal tries to capture the aspects of the coastal and marine system that people value as part of their cultural identity. This definition includes people living near the ocean and those who live far from it but still derive a sense of identity or value from knowing particular places or species exist. The sub-goal of Lasting Special Places focuses on those geographic locations that hold particular value for aesthetic, spiritual, cultural, recreational or existence reasons, and assesses how well they are protected. A score of 100 means the species and places important for cultural identity are protected and conserved.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Clean Waters
+
+### Goal Description
+
+People value marine waters that are free of pollution and debris for aesthetic and health reasons. Contamination of waters comes from oil spills, chemicals, eutrophication, algal blooms, disease pathogens (e.g., fecal coliform, viruses, and parasites from sewage outflow), floating trash, and mass kills of organisms due to pollution. People are sensitive to these phenomena occurring in areas that they access for recreation or other purposes as well as for simply knowing that clean waters exist. The Clean Water goal captures the degree to which local waters are unpolluted by natural and human-made causes. This goal scores highest when the contamination level is zero.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Biodiversity: Species
+
+### Goal Description
+
+People value biodiversity in particular for its existence value. The risk of species extinction generates great emotional and moral concern for many people. As such, Biodiversity goal assesses the conservation status of species based on the best available global data. This sub-goal of Species assesses the health of all marine species present in a region, including endangered species and species in relatively good conditions. The presence of higher-risk species leads to a higher score.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.
+
+---- 
+
+## Biodiversity: Habitats
+
+### Goal Description
+
+Habitats conditions are considered as a proxy for condition of the broad suite of species that depend on them. The Habitats sub-goal includes all habitats in the study area, and assess their health condition and coverage area.
+
+### OHI+ Tanzania
+
+In Tanzania...
+
+We recommend that the Fisheries goal **should/should not** be included in future OHI assessments for Tanzania.

@@ -219,6 +219,9 @@ MAR <- function(layers) {
               by = c('rgn_id', 'taxa_code', 'scenario_year')) %>%
     select(rgn_id, scenario_year, taxa_code, tonnes, sust_coeff)
 
+  ## remove NAs
+  rky <- rky %>%
+    filter(!is.na(rgn_id))
 
   # fill in gaps with no data
   rky <- spread(rky, scenario_year, tonnes)

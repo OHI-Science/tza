@@ -173,93 +173,50 @@ write.csv(region_status_3yr_ave,"recent_and_reference_coral_cover_per_region.csv
 #save final output coral health layer
 write.csv(region_scores,"hab_coral_health_tan2018.csv",row.names = F)
 
-# other status methods -----------------------------------------------------
-
-
-#this was done across the period break for 2016 - confirm if this is okay?
-#new method: include Period, so we can compare post-2016 to pre-1998
-county_ave<-ddply(station_sum,c("Sector","Site","Year","Period","benthic_code"),summarise,
-                   ave_cover=mean(mean_cover),
-                  n_sites=length(unique(Station)))
-
-
-#this is only using 1 single year for ref point and status - can we use an average of 2 or 3 years
-county_status<-ddply(county_ave,c("Sector","Site","Period","benthic_code"),summarise,
-                    recent_cover=tail(ave_cover,n=3),
-                    recent_Year=tail(Year,n=3),
-                    n_site_recent=tail(n_sites,n=3),
-                    reference_cover=head(ave_cover,n=3),
-                    reference_Year=head(Year,n=3),
-                    n_site_ref=head(n_sites,n=3))
-
-
-
-# county_status3<-ddply(county_status2,c("Sector","benthic_code"),summarise,
-#                       recent_cover_ave=round(mean(recent_cover),2),
-#                       reference_cover_ave=round(mean(reference_cover),2))
-
-#period averages - pre-1998 vs post-2016(current)
-
-#this step is to average values from a particular site before averaging across period so that one site/area is not overly represented
-period_ave<-ddply(station_sum,c("Sector","Site","Station","Period","benthic_code"),summarise,
-                  ave_cover=mean(mean_cover),
-                  n_sites=length(unique(Year)))
-
-# period_ave<-ddply(station_sum,c("Sector","Period","benthic_code"),summarise,
-#                   ave_cover=mean(mean_cover),
-#                   n_sites=length(unique(Station)))
-
-period_ave<-period_ave[which(period_ave$benthic_code=='HC'),]
-period_ave$ave_cover<-round(period_ave$ave_cover,2)
-
-period_ave2<-ddply(period_ave,c("Site","Period","benthic_code"),summarise,
-                  mean_cover=mean(ave_cover),
-                  n_sites=length(unique(Station)))
-
-#change this period_ave if use the method of averaging across period
-county_status4<-ddply(period_ave2,c("Sector","benthic_code"),summarise,
-                      recent_cover=head(ave_cover,n=1),
-                      n_site_recent=head(n_sites,n=1),
-                      reference_cover=tail(ave_cover,n=1),
-                      n_site_ref=tail(n_sites,n=1))
-
-#can also consider doing comparisons per reef area and then aggregating the scores (0-1) by region/county
-
-county_status$status<-county_status$recent_cover/county_status$reference_cover
-
 
 # calculate 5 year trend ---------------------------------------------------------
 #county level = count_ave dataframe
 
-#step 1: get the yearly average - for each sector/county or site?
+#step 1: use the yearly average cover for each region - site_ave
 
-county_ave<-ddply(station_sum,c("Sector","Year","benthic_code"),summarise,
-                  ave_cover=mean(mean_cover),
-                  sd=sd(mean_cover),
-                  n_sites=length(unique(Station)))
 
-#remove erronous time points Mombasa 2015, Kwale and Lamu 2016 and Kilifi 2014
-county_ave<-county_ave[-c(which(county_ave$Sector=='Kilifi'& county_ave$Year==2014),
-                                        which(county_ave$Sector=='Lamu'& county_ave$Year==2016),
-                                        which(county_ave$Sector=='Kwale'& county_ave$Year==2016),
-                                        which(county_ave$Sector=='Mombasa'& county_ave$Year==2015)),]
+#remove erronous time points Unguja - 2012,2013, Tanga 1987 - 2001,
+site_ave<-site_ave[-c(which(site_ave$Sector=='Unguja'& site_ave$Year==2012),
+                            which(site_ave$Sector=='Unguja'& site_ave$Year==2013)),]
+                                        # which(site_ave$Sector=='Lamu'& site_ave$Year==2016),
+                                        # which(site_ave$Sector=='Kwale'& site_ave$Year==2016),
+                                        # which(site_ave$Sector=='Mombasa'& site_ave$Year==2015)),]
 
-#calculate trend - 5 most recent years for each county (contains some gaps in years)
-# county_trend<-ddply(county_ave,c("Sector","benthic_code"),summarise,
-#                     recent_cover=round(tail(ave_cover,n=6),2),
-#                     sd=round(tail(sd,n=6),2),
-#                     years=tail(Year,n=6),
-#                     n=tail(n_sites,n=6))
+#lots of data gaps (temporal) so need to do gap-filling - no data from 2012-2014
 
-# write.csv(county_trend,"coral_cover_trend_6years_per_county.csv",row.names = F)
+library(tidyr)
+#data from long to wide
+
+data_wide <- spread(site_ave[,c(1:4)], Year, ave_cover)
+
+#add in years 2012-2014 for gap filling
+
+data_wide$'2012'<-NA
+data_wide$'2013'<-NA
+data_wide$'2014'<-NA
+
+data_wide<-data_wide[,c(1:24,28,29,30,25:27)]
+
+data_long <- gather(data_wide, Year, ave_cover, '1974':'2017', factor_key=TRUE)
+
+#this output must be manually gap-filled in Excel - trend fule below is the output from the manual process
+write.csv(data_long,"long_data_for_temporal_gap_filling.csv",row.names = F)
+
+#trend -> file produce from Excel, will take the 5 most recent years for each region (2013-2017)
+trend<-read.csv("tan_coral_trend_gap_fill.csv",header = T,stringsAsFactors = F)
 
 library(dplyr)
 #calculate trends
 ## minimum year here for illustration; it is based on data available
-Year_min = 2006
+Year_min = 2013
 
 #
-r.trend <- county_ave %>%
+r.trend <- trend %>%
   filter(Year >= Year_min) %>%
   filter(!is.na(ave_cover)) %>%
   group_by(Sector) %>%
@@ -287,10 +244,13 @@ dplyr::summarize(Sector, score = ifelse(coef(mdl)['Year']==0, 0, coef(mdl)['Year
   dplyr::select(Sector,habitat ,score, dimension)
 
 r.trend2$rgn_id<-NA
-r.trend2$rgn_id[which(r.trend2$Sector=='Mombasa')]<-1
-r.trend2$rgn_id[which(r.trend2$Sector=='Kwale')]<-2
-r.trend2$rgn_id[which(r.trend2$Sector=='Kilifi')]<-3
-r.trend2$rgn_id[which(r.trend2$Sector=='Lamu')]<-5
+r.trend2$rgn_id[which(r.trend2$Sector=='Pwani')]<-2
+r.trend2$rgn_id[which(r.trend2$Sector=='Mtwara')]<-4
+r.trend2$rgn_id[which(r.trend2$Sector=='Dar_es_Salaam')]<-3
+r.trend2$rgn_id[which(r.trend2$Sector=='Lindi')]<-5
+r.trend2$rgn_id[which(r.trend2$Sector=='Tanga')]<-6
+r.trend2$rgn_id[which(r.trend2$Sector=='Unguja')]<-7
+r.trend2$rgn_id[which(r.trend2$Sector=='Pemba')]<-8
 
 #change score name to trend
 
@@ -306,7 +266,7 @@ r.trend2<-r.trend2[,c(5,2,6,3)]
 
 r.trend2<-r.trend2[order(r.trend2$rgn_id),]
 
-write.csv(r.trend2,"hab_coral_trend_ken2018.csv",row.names = F)
+write.csv(r.trend2,"hab_coral_trend_tan2018.csv",row.names = F)
 
 # status_data<-county_ave
 #

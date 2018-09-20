@@ -53,16 +53,14 @@ ste<-ddply(tan,c("Sector","Year"),summarise,
 
 #calculate yearly mean for each county - aggregate across stations
 
-#sum algae categories to produce fleshy algae value for each station
-
 #then for each station we have to sum by benthic_code and then we can aggregate across sectors
 
-#this is to aggregate per station all algae to FA. n_test is to make sure that only FA has multiple values per station
+# n_test is to make sure that no multiple values per station
 station_sum<-ddply(tan,c("Country","Year","Sector","Site","Station","Period","benthic_code"),summarise,
                    mean_cover=sum(cover,na.rm = T),
                    n_test=length(cover))
 
-unique(station_sum$benthic_code[which(station_sum$n_test>1)]) #only FA - all is okay
+unique(station_sum$benthic_code[which(station_sum$n_test>1)]) #none/empty - all ok
 
 #only take HC
 
@@ -72,7 +70,22 @@ station_sum$mean_cover<-round(station_sum$mean_cover,2)
 
 # calculate status --------------------------------------------------------
 
+#some data pre-1998 in GCRMN dataset, need to decide if it is to be considered with pre98 data
 
+pre98_GCRMN<-station_sum[which(station_sum$Period=='Pre'&station_sum$Year<1998),]
+unique(pre98_GCRMN$Site) #data just for Zbar
+
+summ_pre98GCRMN<-ddply(pre98_GCRMN,c("Sector","Site","Year"),summarise,
+                       ave_cover=mean(mean_cover),
+                       sd=sd(mean_cover),
+                       n=length(unique(Station)))
+
+#take those years where we had at least 4 stations monitored
+summ_pre98GCRMN<-summ_pre98GCRMN[which(summ_pre98GCRMN$n>3),]
+
+#now need to add this to pre98 before we produce ref_values
+ref_value_unguja<-ddply(summ_pre98GCRMN,c("Sector"),summarise,
+                        ref_cover=mean(ave_cover))
 
 #only pre-98 values to calculate reference values for each site/area
 pre98<-station_sum[which(station_sum$Period=='pre-1998'),]
@@ -84,77 +97,81 @@ pre98<-pre98[-c(1),]  #21,22 are two lamu sites
 ref_values<-ddply(pre98,c("Sector"),summarise,
                   ref_cover=mean(mean_cover))
 
+#replace the value for Unguja in ref_values with ref_value_unguja
+
+ref_values$ref_cover[ref_values$Sector=='Unguja']<-ref_value_unguja$ref_cover
 
 #now to calculate the current cover values for each site based on values for 3 most recent years
 #average over 2-3 years (current levels vs pre-1998)
 
-#step 1 - get the year average for each site
+#step 1 - get the year average for each Sector
 site_ave<-ddply(station_sum,c("Sector","Year","benthic_code"),summarise,
                 ave_cover=mean(mean_cover),
                 n_sites=length(unique(Station)))
 
-#step 2 - take the most recent 3 years of data for each site from site_ave - set n=4, and then pick 3 best years
-county_status_3yr<-ddply(site_ave,c("Sector","benthic_code"),summarise,
+#step 2 - take the most recent 3 years of data for each site from site_ave
+region_status_3yr<-ddply(site_ave,c("Sector","benthic_code"),summarise,
                          recent_cover=round(tail(ave_cover,n=3),2),
                          recent_Year=tail(Year,n=3),
                          n_site_recent=tail(n_sites,n=3))
 
-#remove extra and erronous years - left with 3 years per site
-county_status_3yr<-county_status_3yr[-c(which(county_status_3yr$Sector=='Dar_es_Salaam'& county_status_3yr$recent_Year==1997),
-                     which(county_status_3yr$Sector=='Dar_es_Salaam'& county_status_3yr$recent_Year==1998),
-                     which(county_status_3yr$Sector=='Dar_es_Salaam'& county_status_3yr$recent_Year==1974),
-                     # which(county_status_3yr$Sector=='Lindi'& county_status_3yr$recent_Year==2009),
-                     # which(county_status_3yr$Sector=='Mtwara'& county_status_3yr$recent_Year==1999),
-                     which(county_status_3yr$Sector=='Pemba'& county_status_3yr$recent_Year==1997)),]
+#remove too old and erronous years - some regions left with less than 3 years - inconsistent
+region_status_3yr<-region_status_3yr[-c(which(region_status_3yr$Sector=='Dar_es_Salaam'& region_status_3yr$recent_Year==1997),
+                     which(region_status_3yr$Sector=='Dar_es_Salaam'& region_status_3yr$recent_Year==1998),
+                     which(region_status_3yr$Sector=='Dar_es_Salaam'& region_status_3yr$recent_Year==1974),
+                     # which(region_status_3yr$Sector=='Lindi'& region_status_3yr$recent_Year==2009),
+                     # which(region_status_3yr$Sector=='Mtwara'& region_status_3yr$recent_Year==1999),
+                     which(region_status_3yr$Sector=='Pemba'& region_status_3yr$recent_Year==1997)),]
 
 
 
-#step 3: average across the 3 most recent years of data for each site to get recent cover values
-county_status_3yr_ave<-ddply(county_status_3yr,c("Sector","benthic_code"),summarise,
+#step 3: average across the most recent years of data for each region to get recent cover values
+region_status_3yr_ave<-ddply(region_status_3yr,c("Sector","benthic_code"),summarise,
                              recent_cover_ave=round(mean(recent_cover),2))
 
-#step 4: match the reference values to the recent values in county_status_3yr_ave
+#step 4: match the reference values to the recent values in region_status_3yr_ave
 
-county_status_3yr_ave$ref_cover<-round(ref_values$ref_cover[match(county_status_3yr_ave$Sector,ref_values$Sector)],2)
+region_status_3yr_ave$ref_cover<-round(ref_values$ref_cover[match(region_status_3yr_ave$Sector,ref_values$Sector)],2)
 
-county_status_3yr_ave$score<-round(county_status_3yr_ave$recent_cover_ave/county_status_3yr_ave$ref_cover,3)
+region_status_3yr_ave$score<-round(region_status_3yr_ave$recent_cover_ave/region_status_3yr_ave$ref_cover,3)
 
 
 #to get OHI scores curtailed to max of 1
-county_status_3yr_ave$health<-round(county_status_3yr_ave$score,3)
+region_status_3yr_ave$health<-round(region_status_3yr_ave$score,3)
 
-county_status_3yr_ave$health[which(county_status_3yr_ave$score>1)]<-1
+region_status_3yr_ave$health[which(region_status_3yr_ave$score>1)]<-1
 
-# county_scores<-ddply(county_status_3yr_ave,c("Sector"),summarise,
+# region_scores<-ddply(region_status_3yr_ave,c("Sector"),summarise,
 #                      health=round(mean(ohi_score),3)
 #                      )
 
-county_scores<-county_status_3yr_ave
-county_scores$rgn_id<-NA
-county_scores$rgn_id[which(county_scores$Sector=='Pwani')]<-2
-county_scores$rgn_id[which(county_scores$Sector=='Mtwara')]<-4
-county_scores$rgn_id[which(county_scores$Sector=='Dar_es_Salaam')]<-3
-county_scores$rgn_id[which(county_scores$Sector=='Lindi')]<-5
-county_scores$rgn_id[which(county_scores$Sector=='Tanga')]<-6
-county_scores$rgn_id[which(county_scores$Sector=='Unguja')]<-7
-county_scores$rgn_id[which(county_scores$Sector=='Pemba')]<-8
+region_scores<-region_status_3yr_ave
+region_scores$rgn_id<-NA
+region_scores$rgn_id[which(region_scores$Sector=='Pwani')]<-2
+region_scores$rgn_id[which(region_scores$Sector=='Mtwara')]<-4
+region_scores$rgn_id[which(region_scores$Sector=='Dar_es_Salaam')]<-3
+region_scores$rgn_id[which(region_scores$Sector=='Lindi')]<-5
+region_scores$rgn_id[which(region_scores$Sector=='Tanga')]<-6
+region_scores$rgn_id[which(region_scores$Sector=='Unguja')]<-7
+region_scores$rgn_id[which(region_scores$Sector=='Pemba')]<-8
 
-
-maxyear<-ddply(county_status_3yr,c("Sector"),summarise,
+#steps to add the most recent_year to the dataframe
+maxyear<-ddply(region_status_3yr,c("Sector"),summarise,
                maxyear=max(recent_Year))
 
-county_scores$year<-maxyear$maxyear[match(county_scores$Sector,maxyear$Sector)]
+region_scores$year<-maxyear$maxyear[match(region_scores$Sector,maxyear$Sector)]
 
-county_scores$habitat<-'coral'
+region_scores$habitat<-'coral'
 
-county_scores<-county_scores[,c(7,9,8,6)]
+region_scores<-region_scores[,c(7,9,8,6)]
 
-county_scores<-county_scores[order(county_scores$rgn_id),]
+region_scores<-region_scores[order(region_scores$rgn_id),]
 
-# write.csv(county_status_3yr,"3_years_recent_coral_cover_per_site.csv",row.names = F)
-# write.csv(county_status_3yr_ave,"recent_and_reference_coral_cover_per_site.csv",row.names = F)
+#save some intermediary outputs
+write.csv(region_status_3yr_ave,"recent_and_reference_coral_cover_per_region.csv",row.names = F)
 
-write.csv(county_scores,"hab_coral_health_tan2018.csv",row.names = F)
+#save final output coral health layer
+write.csv(region_scores,"hab_coral_health_tan2018.csv",row.names = F)
 
 # other status methods -----------------------------------------------------
 

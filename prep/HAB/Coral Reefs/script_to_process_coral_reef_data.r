@@ -218,6 +218,7 @@ Year_min = 2013
 #takes 5 most recent years for each region (2013 - 2017)
 #for some regions e.g Dar, latest data was in 2008, but trend value will be the same regardless of which 5 year section is selected
 #all other regions have data between 2015-2017
+
 r.trend <- trend %>%
   filter(Year >= Year_min) %>%
   filter(!is.na(ave_cover)) %>%

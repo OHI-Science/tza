@@ -8,7 +8,7 @@ library(rgeos)
 library(dplyr)#for summarising data
 ##############################################################################################
 #Import high resolution coastline
-coastline<-readOGR("D:/git/ken/prep/CS_CP_HAB/Pressure/Population/shapefiles/wio_coastline.shp")  #navigates from ken folder
+coastline<-readOGR("D:/git/zspatial_extent/wio_coastline.shp")  #navigates from ken folder
 
 plot(coastline,col="red", main="WIO High resolution")#optional
 
@@ -18,16 +18,16 @@ plot(coastline,col="red", main="WIO High resolution")#optional
 coastline_utm<-spTransform(coastline,CRS("+init=epsg:32737 +proj=utm +zone=37 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 #Define buffer width
-coast_25mile_buffer<-gBuffer(coastline_utm, width = 8046.72)
+coast_5mile_buffer<-gBuffer(coastline_utm, width = 8046.72)
 
 #reproject back to wgs-84
-coastline_buffer_wgs84<-spTransform(coast_25mile_buffer,CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+coastline_buffer_wgs84<-spTransform(coast_5mile_buffer,CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 #Import raster dataset i.e. "GPW_V4 1km population 2015 in this case"
 
 gpwv4_2015<-raster("D:/1 CORDIO GIS/2.1 Human Geography/Population/gpw-v4-population-count_2015.tif")#Define your own path
-
-#Crop and mask raster-use masking. Mask layer = to 25 mile bufferzone
+plot(gpwv4_2015)
+#Crop and mask raster-use masking. Mask layer = to 5 mile bufferzone
 #Can i combine line 32 to 37 to one command
 
 gpwv4_2015_cropped<-crop(gpwv4_2015,coastline_buffer_wgs84)
@@ -47,7 +47,7 @@ plot(coastline_buffer_wgs84, add=TRUE)
 
 # To get all values within each region-need to import ohi admin regions-rgn.This should be the land admin x
 
-rgn<-readOGR("D:/git/ken/prep/CS_CP_HAB/Pressure/Population/shapefiles/ken_ohi_counties.shp")
+rgn<-readOGR("D:/git/zspatial_extent/Tanzania_OHI-regions.shp")
 vals = extract(gpwv4_2015_cropped,rgn,method='simple')%>%
   setNames(rgn@data$rgn_name)
 

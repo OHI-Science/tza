@@ -81,15 +81,24 @@ dir.create(file.path('./prep/HAB/Pressure/Population/','Extracted_regional_value
 write.csv(total_df,"./prep/CS_CP_HAB/Pressure/Population/Extracted_regional_value _csv/2015_human_pop_county_at_5miles_buffer.csv",row.names = F)
 
 #Normalising the population
-tza_rgn_pop_5miles<-read.csv("2015_human_pop_count_at_5miles_buffer.csv")
+
+library(here)
+#steps:
+#assign the correct county (maybe under sector) to each site
+setwd(here::here('prep/pressures/Pressure-Intertidal habitat-5miles/Population/'))
+
+tza_rgn_pop_5miles<-read.csv("Extracted_regional_value _csv/2015_human_pop_count_at_5miles_buffer.csv",header = T,stringsAsFactors = F)
+
 tot_pop_5mile<-sum(tza_rgn_pop_5miles$pop_count)
 
 #normalised pop
-tza_rgn_pop_5miles$pressure_score<-(tza_rgn_pop_5miles$pop_count/4336826)
+tza_rgn_pop_5miles$pressure_score<-(tza_rgn_pop_5miles$pop_count/sum(tza_rgn_pop_5miles$pop_count))  #4336826
 
-cal_status <- tza_rgn_pop_5miles[c(1,2,3,5)]
+cal_status <- tza_rgn_pop_5miles[c(1,3,5)]
 
-write.csv(cal_status,"D:/git/tza/prep/pressures/Pressure-Intertidal habitat-5miles/Population/Extracted_regional_value _csv/hd_intertidal_tzn2018.csv",row.names = F)
+cal_status<-cal_status[order(cal_status$rgn_id),]
+
+write.csv(cal_status,"Extracted_regional_value _csv/hd_intertidal_tan2018.csv",row.names = F)
 
 
 

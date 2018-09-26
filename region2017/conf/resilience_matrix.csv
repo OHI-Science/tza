@@ -14,7 +14,7 @@ FIS,,,,x,x,,,x,x,x,x,,,,,,x,x,x,,,,
 HAB,coral,x,x,,,,,,,,x,,,,,x,,x,,,,x,x
 HAB,mangrove,,x,,,,,,,,,,,,,x,,x,,,,x,x
 HAB,saltmarsh,x,x,,x,,,,,,,x,x,,,x,,x,x,,,,
-HAB,seagrass,x,x,,x,,,,,,,x,x,,,x,,x,x,,,,
+HAB,seagrass,x,x,,,,,,,,,,,,,x,,x,,,,x,x
 HAB,seaice_edge,,,,,,,,,,,x,x,,,,x,x,x,,,,
 HAB,soft_bottom,x,,x,x,,,x,x,x,,x,x,,,,x,x,x,,,,
 ICO,,x,,x,x,,,x,x,x,x,,,,x,,x,x,x,,,,

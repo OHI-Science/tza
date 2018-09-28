@@ -92,7 +92,7 @@ tza_rgn_pop_5miles<-read.csv("Extracted_regional_value _csv/2015_human_pop_count
 tot_pop_5mile<-sum(tza_rgn_pop_5miles$pop_count)
 
 #normalised pop
-tza_rgn_pop_5miles$pressure_score<-(tza_rgn_pop_5miles$pop_count/sum(tza_rgn_pop_5miles$pop_count))  #4336826
+tza_rgn_pop_5miles$pressure_score<-(tza_rgn_pop_5miles$pop_count/sum(tza_rgn_pop_5miles$pop_count))
 
 cal_status <- tza_rgn_pop_5miles[c(1,3,5)]
 

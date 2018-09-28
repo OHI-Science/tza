@@ -2,7 +2,7 @@
 #This script imports hight resolution coastline,reprojects the high resolution coastline to UTM for
 #defination of buffer width in mtrs and later reprojects it back to CRS-WGS-84 for clipping
 #Requires:
-library(here)   #install.packages('here')
+library(here)
 library(dplyr)
 library(rgdal)
 library(tidyverse)
@@ -16,9 +16,9 @@ options(scipen = 999) #this forces reporting in non scientific notation
 
 
 #read in the high resolution coastline
-#setwd(here::here('D:/git/tza/prep/pressures/Demand for fish_25miles/'))
+setwd(here::here('prep/pressures/Demand for fish_25miles/'))
 
-coastline<-readOGR("D:/git/zspatial_extent/wio_coastline.shp")  #navigates from ken folder
+coastline<-readOGR("prep/pressures/Demand for fish_25miles/wio_coastline.shp")  #navigates from ken folder
 
 plot(coastline,col="red", main="WIO High resolution")
 
@@ -59,7 +59,7 @@ plot(coastline_buffer_wgs84, add=TRUE)
 
 # To get all values within each region-need to import ohi regions-rgn
 
-rgn<-readOGR("D:/git/zspatial_extent/Tanzania_OHI-regions.shp")
+rgn<-readOGR("prep/pressures/Demand for fish_25miles/Tanzania_OHI-regions.shp")
 
 
 vals = extract(gpwv4_2015_cropped,rgn,method='simple')%>%
@@ -93,11 +93,7 @@ total_df
 #dir.create(file.path('D:/git/ken/prep/pressures/Population/','Extracted_regional_value _csv'), showWarnings = FALSE) #creates new sub folder
 
 
-write.csv(total_df,"D:/git/tza/prep/pressures/Demand for fish_25miles/Extracted_regional_value _csv/2015_human_pop_count_at_25miles_buffer.csv",row.names = F)
-
-#Normalising the population
-tza_rgn_pop_25miles<-read.csv("2015_human_pop_count_at_25miles_buffer.csv")
-tot_pop_25mile<-sum(tza_rgn_pop_25miles$pop_count)
+write.csv(total_df,'/prep/pressures/Demand for fish_25miles/Extracted_regional_value _csv/2015_human_pop_count_at_25miles_buffer.csv',row.names = F)
 
 
 #Normalising the population
@@ -105,7 +101,7 @@ tot_pop_25mile<-sum(tza_rgn_pop_25miles$pop_count)
 library(here)
 #steps:
 #assign the correct county (maybe under sector) to each site
-setwd(here::here('prep/pressures/Pressure-Intertidal habitat-5miles/Population/'))
+setwd(here::here('prep/pressures/Demand for fish_25miles/'))
 
 tza_rgn_pop_25miles<-read.csv("Extracted_regional_value _csv/fp_fish_demand_tz2018.csv",header = T,stringsAsFactors = F)
 

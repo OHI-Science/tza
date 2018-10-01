@@ -47,7 +47,7 @@ plot(coastline_buffer_wgs84, add=TRUE)
 
 # To get all values within each region-need to import ohi admin regions-rgn.This should be the land admin x
 
-rgn<-readOGR("D:/git/zspatial_extent/Tanzania_OHI-regions.shp")
+rgn<-readOGR("D:/git/zspatial_extent/TZA_OHI_Regions.shp")
 vals = extract(gpwv4_2015_cropped,rgn,method='simple')%>%
   setNames(rgn@data$rgn_name)
 
@@ -78,7 +78,7 @@ knitr::kable(total_df)
 dir.create(file.path('./prep/HAB/Pressure/Population/','Extracted_regional_value _csv'), showWarnings = FALSE) #creates new sub folder
 
 
-write.csv(total_df,"./prep/CS_CP_HAB/Pressure/Population/Extracted_regional_value _csv/2015_human_pop_county_at_5miles_buffer.csv",row.names = F)
+write.csv(total_df,"./prep/HAB/Pressure/Population/Extracted_regional_value _csv/2015_human_pop_county_at_5miles_buffer.csv",row.names = F)
 
 #Normalising the population
 
@@ -88,6 +88,7 @@ library(here)
 setwd(here::here('prep/pressures/Pressure-Intertidal habitat-5miles/Population/'))
 
 tza_rgn_pop_5miles<-read.csv("Extracted_regional_value _csv/2015_human_pop_count_at_5miles_buffer.csv",header = T,stringsAsFactors = F)
+
 
 tot_pop_5mile<-sum(tza_rgn_pop_5miles$pop_count)
 

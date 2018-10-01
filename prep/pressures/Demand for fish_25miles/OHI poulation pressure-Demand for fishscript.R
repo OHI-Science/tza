@@ -59,7 +59,7 @@ plot(coastline_buffer_wgs84, add=TRUE)
 
 # To get all values within each region-need to import ohi regions-rgn
 
-rgn<-readOGR("prep/pressures/Demand for fish_25miles/Tanzania_OHI-regions.shp")
+rgn<-readOGR("prep/pressures/Demand for fish_25miles/TZA_OHI_Regions.shp")
 
 
 vals = extract(gpwv4_2015_cropped,rgn,method='simple')%>%
@@ -94,7 +94,7 @@ total_df
 
 
 write.csv(total_df,'/prep/pressures/Demand for fish_25miles/Extracted_regional_value _csv/2015_human_pop_count_at_25miles_buffer.csv',row.names = F)
-
+write.csv(total_df,"C:/Users/James/Desktop/xx/25miles_buffer.csv",row.names = F)
 
 #Normalising the population
 

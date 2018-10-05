@@ -38,7 +38,7 @@ coastline_buffer_wgs84<-spTransform(coast_25mile_buffer,CRS("+proj=longlat +datu
 
 #Import raster dataset i.e. "GPW_V4 1km population 2015 in this case"
 
-gpwv4_2015<-raster("D:/git/zrasters/population/gpw-v4-population-count_2015.tif")#Define your own path
+gpwv4_2015<-raster("//Brahmspc/cordio office 2018/OHI_Spatial_data/population/gpw-v4-population-count_2015.tif")#Define your own path
 
 #Crop and mask raster-use masking. Mask layer = to 25 mile bufferzone
 
@@ -94,7 +94,7 @@ total_df
 
 
 write.csv(total_df,'/prep/pressures/Demand for fish_25miles/Extracted_regional_value _csv/2015_human_pop_count_at_25miles_buffer.csv',row.names = F)
-write.csv(total_df,"C:/Users/James/Desktop/xx/25miles_buffer.csv",row.names = F)
+write.
 
 #Normalising the population
 

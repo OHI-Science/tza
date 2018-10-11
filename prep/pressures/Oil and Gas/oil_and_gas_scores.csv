@@ -1,0 +1,8 @@
+region,year,pressure_score,rationale
+Lindi,2018,1,production activity over a long period of time and multiple sites
+Mtwara,2018,0.85,"production since 07, several tests up until 2016, 3 sites "
+Pwani,2018,0.5,"drilling and seismic testing, from 2006 -2014, 4 times"
+Dar es Salaam,2018,0.35,drilling done only once in 2014 (quite recent)
+Pemba,2018,0.25,"very recent seismic activty (2017), but only seismic "
+Unguja,2018,0.25,"very recent seismic activty (2017), but only seismic "
+Tanga,2018,0.15,"one test in 06 , only seismic"

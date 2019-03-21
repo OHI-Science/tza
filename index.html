@@ -21,8 +21,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -31,10 +31,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -205,7 +207,7 @@ $(document).ready(function () {
 
 
 <hr />
-<p>The Ocean Health Index measures and tracks the benefits and services that the ocean provides for people now and into the future. This assessment is being developed with the support of local stakeholders to better understand how to sustainably balance current and future ocean use.</p>
+<p>The Ocean Health Index measures and tracks the benefits and services that the ocean provides for people now and into the future. This assessment was developed with the support of local stakeholders to better understand how to sustainably balance current and future ocean use. A full report of the findings is available <a href="https://github.com/OHI-Science/tza/blob/master/region2017/reports/Preliminary%20OHI%20Tanzania%20Assessment_Technical%20Report_2018.pdf">here</a> and a summary of the findings is available <a href="https://github.com/OHI-Science/tza/blob/master/region2017/reports/Tanzania_OHI_Brief.pdf">here</a>.</p>
 <center>
 <img src="images/school_fish_NOAA_David%20Burdick.jpg" width="700px">
 </center>
